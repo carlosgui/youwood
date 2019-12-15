@@ -24,9 +24,11 @@ class Home extends Component {
 
   doSearch() {
     const {searchTerm} = this.state;
+    const { videoResult } = this.props;
+
     if (searchTerm !== '') {
-      this.setState({ inputCheck: false })
-      this.props.dispatch(actions.getVideos(searchTerm));
+      this.setState({ inputCheck: false });
+      this.props.dispatch(actions.getVideos(searchTerm, videoResult.length));
     } else {
       this.setState({ inputCheck: true })
     }
