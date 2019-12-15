@@ -32,7 +32,8 @@ export const SearchBar = (props) => {
 
 const searchBarStyle = {
   container: {
-    minWidth: '90vw'
+    maxWidth: '78vw',
+    minWidth: '78vw'
   },
   showErrorText: {
     fontSize: '12pt',
