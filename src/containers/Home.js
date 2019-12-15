@@ -85,7 +85,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = store => ({
-  videoResult: store.youtubeSearch.videoResult
+  videoResult: store.youtubeSearch.videoResult,
+  nextPageToken: store.youtubeSearch.nextPageToken
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
