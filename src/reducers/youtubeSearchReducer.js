@@ -2,6 +2,7 @@ import {SEARCH_VIDEOS, SEARCH_VIDEOS_SUCCESS,SEARCH_VIDEOS_ERROR} from '../actio
 
 const initialState = {
   videoResult: [],
+  nextPageToken: '',
   loading: false,
 };
 
@@ -18,7 +19,8 @@ export const youtubeSearchReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        videoResult: action.videos
+        videoResult: state.videoResult.concat(action.videos),
+        nextPageToken: action.nextPageToken
       };
 
     case SEARCH_VIDEOS_ERROR:
