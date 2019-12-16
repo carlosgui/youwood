@@ -7,6 +7,8 @@ import {
   Typography,
   Card } from '@material-ui/core';
 
+import { Link } from 'react-router-dom';
+
 /**
  * This is a simple stateless component that should render
  * and card with some youtube video informations
@@ -16,29 +18,31 @@ import {
  */
 export const VideoCard = props => {
   const { content } = props;
-  const { videoImage, channelTitle, videoTitle, videoDescription } = getContentInfo(content);
+  const { videoImage, channelTitle, videoTitle, videoDescription, videoId } = getContentInfo(content);
 
   return (
-    <Card style={videoCardStyle.cardStyle}>
-      <CardActionArea>
-        <CardMedia style={videoCardStyle.media}
-          image={videoImage}
-          title="channelTitle"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="h6" align="left">
-            {videoTitle}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" align="left">
-            {channelTitle}
-          </Typography>
-          <hr />
-          <Typography variant="body2" color="textSecondary" component="p" align="left">
-            {videoDescription}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Link to={'/video-details/' + videoId}>
+      <Card style={videoCardStyle.cardStyle}>
+        <CardActionArea>
+          <CardMedia style={videoCardStyle.media}
+            image={videoImage}
+            title="channelTitle"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="h6" align="left">
+              {videoTitle}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="left">
+              {channelTitle}
+            </Typography>
+            <hr />
+            <Typography variant="body2" color="textSecondary" component="p" align="left">
+              {videoDescription}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
   )
 };
 
@@ -52,7 +56,8 @@ const getContentInfo = video => {
     videoImage: video.snippet.thumbnails.high.url,
     channelTitle: video.snippet.channelTitle,
     videoTitle: video.snippet.title,
-    videoDescription: video.snippet.description
+    videoDescription: video.snippet.description,
+    videoId: video.id.videoId
   }
 };
 
@@ -70,7 +75,9 @@ const videoCardStyle = {
   cardStyle: {
     flexGrow: 2,
     margin: 16,
-    maxWidth: 350
+    maxWidth: 350,
+    minHeight: 375,
+    maxHeight: 375
   },
   media: {
     height: 140,
