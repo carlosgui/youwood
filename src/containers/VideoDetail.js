@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { IoIosArrowDropleft, IoIosThumbsDown, IoIosThumbsUp, IoIosEye} from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import actions from '../actions';
+import {Header} from "../components";
 
 class VideoDetail extends Component {
   constructor(props) {
@@ -26,43 +27,51 @@ class VideoDetail extends Component {
 
     const videoInformation = this.formatVideoInfo();
     const url = `http://www.youtube.com/embed/${videoInformation?.videoId}`;
-    return <div className="container">
-      <div className="video-detail col-12">
-        <div style={videoStyle.titleContainer}>
-          <div>
-            <Link to='/'>
-              <IoIosArrowDropleft size={25}/>
-            </Link>
-          </div>
-          <div>
-            <h4>{videoInformation?.title}</h4>
-          </div>
-        </div>
-        <div className="embed-responsive embed-responsive-16by9">
-          <iframe className="embed-responsive-item" src={url}></iframe>
-        </div>
-        <div style={videoStyle.videoInfoContainer}>
-          <div>
-            <label>{videoInformation?.channel}</label>
-          </div>
-          <div style={videoStyle.likeDislike}>
-            <div style={videoStyle.like}>
-              <label><IoIosThumbsUp size={20}/> {videoInformation?.likes}</label>
+    return (
+      <div>
+        <Header/>
+        <div className="container" style={videoStyle.container}>
+          <div className="video-detail col-12">
+            <div style={videoStyle.titleContainer}>
+              <div>
+                <Link to='/'>
+                  <IoIosArrowDropleft size={25}/>
+                </Link>
+              </div>
+              <div style={videoStyle.videoTitle}>
+                <h4>{videoInformation?.title}</h4>
+              </div>
+            </div>
+            <div className="embed-responsive embed-responsive-16by9">
+              <iframe className="embed-responsive-item"
+                      src={url}
+                      alt='video'
+                      title='video' />
+            </div>
+            <div style={videoStyle.videoInfoContainer}>
+              <div>
+                <label>{videoInformation?.channel}</label>
+              </div>
+              <div style={videoStyle.likeDislike}>
+                <div style={videoStyle.like}>
+                  <label><IoIosThumbsUp size={20}/> {videoInformation?.likes}</label>
+                </div>
+                <div>
+                  <label><IoIosThumbsDown size={20}/> {videoInformation?.unlikes}</label>
+                </div>
+              </div>
             </div>
             <div>
-              <label><IoIosThumbsDown size={20}/> {videoInformation?.unlikes}</label>
+              <p>{videoInformation?.description}</p>
+            </div>
+
+            <div>
+              <label><IoIosEye size={20}/> {videoInformation?.views}</label>
             </div>
           </div>
         </div>
-        <div>
-          <p>{videoInformation?.description}</p>
-        </div>
-
-        <div>
-          <label><IoIosEye size={20}/> {videoInformation?.views}</label>
-        </div>
       </div>
-    </div>;
+      );
   }
 
   formatVideoInfo() {
@@ -103,6 +112,9 @@ const videoStyle = {
     display: 'flex',
     paddingTop: '30px'
   },
+  container: {
+    paddingTop: '60px'
+  },
   videoInfoContainer: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -114,6 +126,9 @@ const videoStyle = {
   },
   like: {
     marginRight: '24px'
+  },
+  videoTitle: {
+    paddingLeft: '20px'
   }
 };
 

@@ -75,9 +75,8 @@ const videoCardStyle = {
   cardStyle: {
     flexGrow: 2,
     margin: 16,
-    maxWidth: 350,
-    minHeight: 375,
-    maxHeight: 375
+    width: 320,
+    height: 375,
   },
   media: {
     height: 140,

@@ -1,4 +1,4 @@
-import { SEARCH_VIDEOS, SEARCH_VIDEOS_ERROR, SEARCH_VIDEOS_SUCCESS } from './actionTypes';
+import { SEARCH_VIDEOS, SEARCH_VIDEOS_ERROR, SEARCH_VIDEOS_SUCCESS, SEARCH_MORE_VIDEOS } from './actionTypes';
 import {YOUTUBE_API_KEY, YOUTUBE_SEARCH_URL} from "../resources/api";
 const axios = require('axios');
 
@@ -10,13 +10,19 @@ const axios = require('axios');
  * @param pageToken
  * @returns {Function}
  */
-const getVideos = (searchTerm, pageToken) => {
+const getVideos = (searchTerm, pageToken, isLoadMore = false) => {
   return async dispatch => {
-    dispatch({ type: SEARCH_VIDEOS });
+
+    if(isLoadMore) {
+      dispatch({ type: SEARCH_MORE_VIDEOS });
+    } else {
+      dispatch({ type: SEARCH_VIDEOS });
+    }
+
     try {
       const youtubeSearchParams = {
         key: YOUTUBE_API_KEY,
-        maxResults: '9',
+        maxResults: '15',
         part: 'snippet',
         q: searchTerm,
         order: 'relevance',
