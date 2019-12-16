@@ -1,3 +1,8 @@
-export const SEARCH_VIDEOS = 'CLICK_UPDATE_VALUE';
-export const SEARCH_VIDEOS_ERROR = 'CLICK_UPDATE_VALUE_ERROR';
-export const SEARCH_VIDEOS_SUCCESS = 'CLICK_UPDATE_VALUE_SUCCESS';
+/**
+ * This file should contains all actions types
+ * here we will have a good control about it
+ * @type {string}
+ */
+export const SEARCH_VIDEOS = 'SEARCH_VIDEOS';
+export const SEARCH_VIDEOS_ERROR = 'SEARCH_VIDEOS_ERROR';
+export const SEARCH_VIDEOS_SUCCESS = 'SEARCH_VIDEOS_SUCCESS';

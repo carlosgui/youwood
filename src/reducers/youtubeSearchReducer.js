@@ -6,8 +6,12 @@ const initialState = {
   loading: false,
 };
 
+/**
+ * This reducer should contain and control all data information about our video search
+ * @param state
+ * @param action
+ */
 export const youtubeSearchReducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case SEARCH_VIDEOS:
       return {
@@ -27,7 +31,7 @@ export const youtubeSearchReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        videoResult: {}
+        videoResult: []
       };
 
     default:

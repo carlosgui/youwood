@@ -1,24 +1,27 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { makeStyles } from '@material-ui/core/styles';
 import {
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
-  Button,
   Typography,
   Card } from '@material-ui/core';
 
+/**
+ * This is a simple stateless component that should render
+ * and card with some youtube video informations
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 export const VideoCard = props => {
-  const classes = useStyles();
   const { content } = props;
   const { videoImage, channelTitle, videoTitle, videoDescription } = getContentInfo(content);
 
   return (
-    <Card className={classes.card} style={videoCardStyle.cardStyle}>
+    <Card style={videoCardStyle.cardStyle}>
       <CardActionArea>
-        <CardMedia className={classes.media}
+        <CardMedia style={videoCardStyle.media}
           image={videoImage}
           title="channelTitle"
         />
@@ -39,6 +42,11 @@ export const VideoCard = props => {
   )
 };
 
+/**
+ * Here we just get the video information to not pollute the code
+ * @param video
+ * @returns {{videoDescription: *, videoImage: *, videoTitle: *, channelTitle: *}}
+ */
 const getContentInfo = video => {
   return {
     videoImage: video.snippet.thumbnails.high.url,
@@ -48,22 +56,23 @@ const getContentInfo = video => {
   }
 };
 
+/**
+ * page proprieties
+ */
 VideoCard.propTypes = {
   content: PropTypes.object
 };
 
+/**
+ * page css
+ */
 const videoCardStyle = {
   cardStyle: {
-    flexGrow: 2
-  }
-}
-
-const useStyles = makeStyles({
-  card: {
+    flexGrow: 2,
     margin: 16,
     maxWidth: 350
   },
   media: {
     height: 140,
-  },
-});
+  }
+};
