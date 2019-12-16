@@ -122,14 +122,11 @@ const homeStyle = {
   home: {
     display: 'flex',
     textAlign: 'center',
-    backgroundColor: '#282c34',
     minHeight: '100vh',
-    minWidth: '90vw',
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
     fontSize: 'calc(10px + 2vmin)',
-    color: 'white'
   }
 };
 
