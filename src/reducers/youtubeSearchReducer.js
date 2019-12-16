@@ -1,4 +1,4 @@
-import {SEARCH_VIDEOS, SEARCH_VIDEOS_SUCCESS,SEARCH_VIDEOS_ERROR} from '../actions/actionTypes';
+import {SEARCH_VIDEOS, SEARCH_VIDEOS_SUCCESS,SEARCH_VIDEOS_ERROR,SEARCH_MORE_VIDEOS} from '../actions/actionTypes';
 
 const initialState = {
   videoResult: [],
@@ -14,6 +14,13 @@ const initialState = {
 export const youtubeSearchReducer = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_VIDEOS:
+      return {
+        ...state,
+        loading: true,
+        videoResult: []
+      };
+
+    case SEARCH_MORE_VIDEOS:
       return {
         ...state,
         loading: true

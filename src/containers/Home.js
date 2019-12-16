@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import actions from '../actions'
 import InfiniteScroll from 'react-infinite-scroller';
-import {SearchBar, VideoList, Loading} from "../components";
+import {SearchBar, VideoList, Loading, Header} from "../components";
 
 /**
  * Home container this is the mainly page of the app
@@ -55,7 +55,7 @@ class Home extends Component {
     const { nextPageToken, loading } = this.props;
 
     if(firstSearch && !loading) {
-      this.props.dispatch(actions.getVideos(searchTerm, nextPageToken));
+      this.props.dispatch(actions.getVideos(searchTerm, nextPageToken, true));
     }
   }
 
@@ -79,23 +79,26 @@ class Home extends Component {
     const { videoResult, loading } = this.props;
 
     return (
-      <div className="col-12" style={homeStyle.home}>
-        <SearchBar searchTerm={searchTerm}
-                   doSearch={this.doSearch}
-                   onInputChange={this.onInputChange}
-                   onKeyPress={this.onKeyPress}
-                   inputCheck={inputCheck} />
+      <div>
+        <Header />
+        <div className="col-12" style={homeStyle.home}>
+          <SearchBar searchTerm={searchTerm}
+                     doSearch={this.doSearch}
+                     onInputChange={this.onInputChange}
+                     onKeyPress={this.onKeyPress}
+                     inputCheck={inputCheck} />
 
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={this.loadMore}
-          hasMore={true}
-        >
-          <VideoList videoResult={videoResult}/>
-        </InfiniteScroll>
-        <Loading loading={loading} />
-
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadMore}
+            hasMore={true}
+          >
+            <VideoList videoResult={videoResult}/>
+          </InfiniteScroll>
+          <Loading loading={loading} />
+        </div>
       </div>
+
     );
   }
 }
@@ -127,6 +130,7 @@ const homeStyle = {
     flexDirection: 'column',
     justifyContent: 'center',
     fontSize: 'calc(10px + 2vmin)',
+    paddingTop: '70px',
   }
 };
 
