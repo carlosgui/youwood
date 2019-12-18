@@ -1,8 +1,9 @@
 ## `YOUWOOD`
 #### This is a project developed by `Carlos Henrique Guimaraes` to Madeira Madeira front-end developer test.
 ##
+You can access it on https://dreamy-boyd-8ed0cb.netlify.com/
+##
 This project is about video search, list and view.
-
 Using youtube api V3 to get the videos, we should be able to search any video we want, 
 them on a list we should see the basic information about it and select one to watch.
 

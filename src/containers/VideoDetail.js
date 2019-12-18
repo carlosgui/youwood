@@ -5,6 +5,7 @@ import { IoIosArrowDropleft, IoIosThumbsDown, IoIosThumbsUp, IoIosEye} from 'rea
 import { Link } from 'react-router-dom';
 import actions from '../actions';
 import {Header} from "../components";
+import {YOUTUBE_EMBED_URL} from "../resources/api";
 
 class VideoDetail extends Component {
   constructor(props) {
@@ -24,9 +25,7 @@ class VideoDetail extends Component {
     if(!this.props.video) {
       return <></>
     }
-
     const videoInformation = this.formatVideoInfo();
-    const url = `http://www.youtube.com/embed/${videoInformation?.videoId}`;
     return (
       <div>
         <Header/>
@@ -44,8 +43,7 @@ class VideoDetail extends Component {
             </div>
             <div className="embed-responsive embed-responsive-16by9">
               <iframe className="embed-responsive-item"
-                      src={url}
-                      alt='video'
+                      src={this.getVideoUrl(this.state.videoId)}
                       title='video' />
             </div>
             <div style={videoStyle.videoInfoContainer}>
@@ -73,6 +71,8 @@ class VideoDetail extends Component {
       </div>
       );
   }
+
+  getVideoUrl = (videoId) => `${YOUTUBE_EMBED_URL}${videoId}`;
 
   formatVideoInfo() {
     const { video } = this.props;

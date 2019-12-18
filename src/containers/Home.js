@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import actions from '../actions'
 import InfiniteScroll from 'react-infinite-scroller';
 import {SearchBar, VideoList, Loading, Header} from "../components";
+import history from '../config/history';
 
 /**
  * Home container this is the mainly page of the app
@@ -26,6 +27,14 @@ class Home extends Component {
     this.loadMore = this.loadMore.bind(this);
   }
 
+  componentDidMount() {
+    const { search } = this.props.match.params;
+    if(search) {
+      history.push(`${search}`);
+      this.props.dispatch(actions.getVideos(search));
+    }
+  }
+
   onInputChange(event) {
     this.setState( { searchTerm: event.target.value })
   }
@@ -36,14 +45,14 @@ class Home extends Component {
    */
   doSearch() {
     const { searchTerm } = this.state;
-    const { loading } = this.props;
-
-    if (searchTerm !== '' && !loading) {
-      this.setState({ inputCheck: false, firstSearch: true });
-      this.props.dispatch(actions.getVideos(searchTerm));
-    } else {
-      this.setState({ inputCheck: true })
+    if (searchTerm === '') {
+      this.setState({ inputCheck: true });
+      return;
     }
+
+    this.setState({ inputCheck: false, firstSearch: true });
+    history.push(`${searchTerm}`);
+    this.props.dispatch(actions.getVideos(searchTerm));
   }
 
   /**
