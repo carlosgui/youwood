@@ -19,6 +19,7 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route path="/video-details/:videoId" render={props => <VideoDetail {...props }/>} />
+        <Route path="/:search" render={props => <Home {...props}/>} />
         <Route path="/" render={props => <Home {...props}/>} />
       </Switch>
     </Router>
