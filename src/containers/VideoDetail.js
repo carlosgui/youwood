@@ -7,6 +7,10 @@ import actions from '../actions';
 import {Header} from "../components";
 import {YOUTUBE_EMBED_URL} from "../resources/api";
 
+/***
+ * Video details page this page handles video view and channel page
+ * this component has redux connection
+ */
 class VideoDetail extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +19,9 @@ class VideoDetail extends Component {
     this.formatVideoInfo = this.formatVideoInfo.bind(this);
   }
 
+  /***
+   * Get url params to do the search when enter on page
+   */
   componentDidMount() {
     const { videoId, search } = this.props.match.params;
     this.setState({ videoId, searchTerm: search });
@@ -22,14 +29,29 @@ class VideoDetail extends Component {
   }
 
   render() {
-    if(!this.props.video) {
-      return <></>
-    }
     const { searchTerm } = this.state;
+
+    if(!this.props.video) {
+      return <div>
+        <Header searchTerm={searchTerm}/>
+        <div style={videoStyle.channelPage}>
+          <div>
+            <h5> Em breve pagina de perfil desde canal! </h5>
+          </div>
+          <div>
+            <label>Estamos trabalhando duro para que isso esteja pronto o quanto antes!</label>
+          </div>
+          <div>
+            <Link to={`/${searchTerm}`}>Voltar para a busca</Link>
+          </div>
+        </div>
+      </div>
+    }
+
     const videoInformation = this.formatVideoInfo();
     return (
       <div>
-        <Header/>
+        <Header searchTerm={searchTerm}/>
         <div className="container" style={videoStyle.container}>
           <div className="video-detail col-12">
             <div style={videoStyle.titleContainer}>
@@ -73,8 +95,17 @@ class VideoDetail extends Component {
       );
   }
 
+  /***
+   * Just mount the video URL using videoId
+   * @param videoId
+   * @returns {string}
+   */
   getVideoUrl = (videoId) => `${YOUTUBE_EMBED_URL}${videoId}`;
 
+  /**
+   * format video information to use at the main render
+   * @returns {{unlikes: number, channel: *, description: *, videoId: *, title: *, views: number, likes: number}}
+   */
   formatVideoInfo() {
     const { video } = this.props;
     if(video && video.snippet) {
@@ -82,10 +113,10 @@ class VideoDetail extends Component {
         title: video.snippet.title,
         videoId: video.id,
         channel: video.snippet.channelTitle,
-        likes: video.snippet.like | 0,
-        unlikes: video.snippet.unlike | 0,
+        likes: video.statistics.likeCount | 0,
+        unlikes: video.statistics.dislikeCount | 0,
         description: video.snippet.description,
-        views: video.snippet.views | 0
+        views: video.statistics.viewCount | 0
       }
     }
   }
@@ -131,6 +162,13 @@ const videoStyle = {
   },
   videoTitle: {
     paddingLeft: '20px'
+  },
+  channelPage: {
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+    flexDirection: 'column',
+    paddingTop: '20%'
   }
 };
 

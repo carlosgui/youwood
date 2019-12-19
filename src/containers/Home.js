@@ -16,7 +16,6 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      searchTerm: '',
       invalidInput: false
     };
 
@@ -26,10 +25,14 @@ class Home extends Component {
     this.loadMore = this.loadMore.bind(this);
   }
 
+  /***
+   * Do the search on page enter IF ALREADY EXISTS A SEARCH TERM
+   */
   componentDidMount() {
     const { search } = this.props.match.params;
     if(search) {
       history.push(`${search}`);
+      this.setState({ searchTerm: search });
       this.props.dispatch(actions.getVideos(search));
     }
   }
@@ -56,7 +59,7 @@ class Home extends Component {
 
   /**
    * Load more function called by infinity scroll
-   * this function only operates after a first normal search
+   * this function only operates after a first normal search when already has videos
    */
   loadMore() {
     const { searchTerm } = this.state;
