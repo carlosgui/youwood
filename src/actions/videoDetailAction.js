@@ -7,7 +7,7 @@ const getVideosDetails = videoId => {
     dispatch({ type: OPEN_VIDEO_DETAILS });
     try {
       const videoDetailParams = {
-        part: 'snippet',
+        part: 'statistics, snippet, id',
         key: YOUTUBE_API_KEY
       };
 
@@ -20,6 +20,7 @@ const getVideosDetails = videoId => {
           params: videoDetailParams
         }
       );
+
       dispatch({ type: OPEN_VIDEO_DETAILS_SUCCESS, video: data.items[0] });
     } catch (e) {
       dispatch({ type: OPEN_VIDEO_DETAILS_ERROR });

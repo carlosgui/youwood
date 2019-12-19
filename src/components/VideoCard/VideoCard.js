@@ -21,7 +21,7 @@ export const VideoCard = props => {
   const { videoImage, channelTitle, videoTitle, videoDescription, videoId } = getContentInfo(content);
 
   return (
-    <Link to={`/${videoId}/${searchTerm}`}>
+    <Link to={`/details/${videoId}/${searchTerm}`}>
       <Card style={videoCardStyle.cardStyle}>
         <CardActionArea>
           <CardMedia style={videoCardStyle.media}
