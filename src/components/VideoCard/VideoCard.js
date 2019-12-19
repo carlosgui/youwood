@@ -17,11 +17,11 @@ import { Link } from 'react-router-dom';
  * @constructor
  */
 export const VideoCard = props => {
-  const { content } = props;
+  const { content, searchTerm } = props;
   const { videoImage, channelTitle, videoTitle, videoDescription, videoId } = getContentInfo(content);
 
   return (
-    <Link to={'/video-details/' + videoId}>
+    <Link to={`/${videoId}/${searchTerm}`}>
       <Card style={videoCardStyle.cardStyle}>
         <CardActionArea>
           <CardMedia style={videoCardStyle.media}
@@ -65,7 +65,8 @@ const getContentInfo = video => {
  * page proprieties
  */
 VideoCard.propTypes = {
-  content: PropTypes.object
+  content: PropTypes.object,
+  searchTerm: PropTypes.string
 };
 
 /**

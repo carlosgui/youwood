@@ -1,17 +1,21 @@
 import React from "react";
 import logo from "../../assets/logo.png";
+import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const Header = () => {
+export const Header = ({searchTerm}) => {
+  if(!searchTerm) {
+    searchTerm = '';
+  }
   return (
-    <div style={headerStyle.header}>
-      <div>
-        <img style={headerStyle.logo} src={logo} alt='logo' />
-      </div>
-      <div style={headerStyle.projectName}>
-        <h3>YouWood</h3>
-      </div>
-      <div></div>
-    </div>
+      <Link to={`/${searchTerm}`}  style={headerStyle.header}>
+        <div>
+          <img style={headerStyle.logo} src={logo} alt='logo' />
+        </div>
+        <div style={headerStyle.projectName}>
+          <h3>YouWood</h3>
+        </div>
+      </Link>
   )
 };
 
@@ -25,6 +29,7 @@ const headerStyle = {
     color: 'white',
     display: 'flex',
     padding: '10px',
+    textDecoration: 'none'
   },
   logo: {
     width: '45px'
@@ -34,3 +39,6 @@ const headerStyle = {
   }
 };
 
+Header.propTypes = {
+  searchTerm: PropTypes.string
+};
