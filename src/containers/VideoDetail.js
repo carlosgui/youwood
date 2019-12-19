@@ -16,8 +16,8 @@ class VideoDetail extends Component {
   }
 
   componentDidMount() {
-    const { videoId } = this.props.match.params;
-    this.setState({ videoId });
+    const { videoId, search } = this.props.match.params;
+    this.setState({ videoId, searchTerm: search });
     this.props.dispatch(actions.getVideosDetails(videoId));
   }
 
@@ -25,6 +25,7 @@ class VideoDetail extends Component {
     if(!this.props.video) {
       return <></>
     }
+    const { searchTerm } = this.state;
     const videoInformation = this.formatVideoInfo();
     return (
       <div>
@@ -33,7 +34,7 @@ class VideoDetail extends Component {
           <div className="video-detail col-12">
             <div style={videoStyle.titleContainer}>
               <div>
-                <Link to='/'>
+                <Link to={`/${searchTerm}`}>
                   <IoIosArrowDropleft size={25}/>
                 </Link>
               </div>
@@ -101,7 +102,8 @@ VideoDetail.propTypes = {
   dispatch: PropTypes.func,
   video: PropTypes.object,
   loading: PropTypes.bool,
-  match: PropTypes.object
+  match: PropTypes.object,
+  searchTerm: PropTypes.string
 };
 
 /**

@@ -10,12 +10,12 @@ import {VideoCard} from "..";
  * @constructor
  */
 export const VideoList = props => {
-  const { videoResult } = props;
+  const { videoResult, searchTerm } = props;
 
   if(videoResult) {
     return (
       <div style={listStyle.flexList}>
-        {videoResult.map((video, key) => <VideoCard content={video} key={key} />)}
+        {videoResult.map((video, key) => <VideoCard content={video} key={key} searchTerm={searchTerm}/>)}
       </div>
     );
   } else {
@@ -40,5 +40,6 @@ const listStyle = {
 VideoList.propTypes = {
   videoResult: PropTypes.array,
   videoDetails: PropTypes.func,
+  searchTerm: PropTypes.string
 };
 

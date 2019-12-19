@@ -17,8 +17,7 @@ class Home extends Component {
 
     this.state = {
       searchTerm: '',
-      inputCheck: false,
-      firstSearch: false
+      invalidInput: false
     };
 
     this.doSearch = this.doSearch.bind(this);
@@ -46,11 +45,11 @@ class Home extends Component {
   doSearch() {
     const { searchTerm } = this.state;
     if (searchTerm === '') {
-      this.setState({ inputCheck: true });
+      this.setState({ invalidInput: true });
       return;
     }
 
-    this.setState({ inputCheck: false, firstSearch: true });
+    this.setState({ invalidInput: false });
     history.push(`${searchTerm}`);
     this.props.dispatch(actions.getVideos(searchTerm));
   }
@@ -60,10 +59,9 @@ class Home extends Component {
    * this function only operates after a first normal search
    */
   loadMore() {
-    const { searchTerm, firstSearch } = this.state;
-    const { nextPageToken, loading } = this.props;
-
-    if(firstSearch && !loading) {
+    const { searchTerm } = this.state;
+    const { nextPageToken, videoResult } = this.props;
+    if(videoResult.length > 0) {
       this.props.dispatch(actions.getVideos(searchTerm, nextPageToken, true));
     }
   }
@@ -84,25 +82,25 @@ class Home extends Component {
    * @returns a render page
    */
   render() {
-    const { searchTerm, inputCheck } = this.state;
+    const { searchTerm, invalidInput } = this.state;
     const { videoResult, loading } = this.props;
 
     return (
       <div>
-        <Header />
+        <Header searchTerm={searchTerm}/>
         <div className="col-12" style={homeStyle.home}>
           <SearchBar searchTerm={searchTerm}
                      doSearch={this.doSearch}
                      onInputChange={this.onInputChange}
                      onKeyPress={this.onKeyPress}
-                     inputCheck={inputCheck} />
+                     inputCheck={invalidInput} />
 
           <InfiniteScroll
             pageStart={0}
             loadMore={this.loadMore}
             hasMore={true}
           >
-            <VideoList videoResult={videoResult}/>
+            <VideoList videoResult={videoResult} searchTerm={searchTerm}/>
           </InfiniteScroll>
           <Loading loading={loading} />
         </div>
