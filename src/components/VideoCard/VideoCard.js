@@ -30,7 +30,7 @@ export const VideoCard = props => {
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h6" align="left">
-              {videoTitle.substr(0,35)}...
+              {videoTitle.substr(0,40)}
             </Typography>
             <Typography variant="body2" color="textSecondary" align="left">
               {channelTitle}

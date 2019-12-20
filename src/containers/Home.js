@@ -47,7 +47,7 @@ class Home extends Component {
    */
   doSearch() {
     const { searchTerm } = this.state;
-    if (searchTerm === '') {
+    if (!searchTerm || searchTerm === '') {
       this.setState({ invalidInput: true });
       return;
     }
